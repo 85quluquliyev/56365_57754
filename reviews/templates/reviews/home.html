@@ -57,6 +57,31 @@
                     <li class="list-group-item"><a href="{% url 'domain_detail' domain.id %}">{{ domain.name }}</a></li>
                 {% endfor %}
             </ul>
+            <br>
+            <!-- Pagination -->
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    {% if domains.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ domains.previous_page_number }}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% for num in domains.paginator.page_range %}
+                        <li class="page-item {% if domains.number == num %}active{% endif %}">
+                            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                        </li>
+                    {% endfor %}
+                    {% if domains.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ domains.next_page_number }}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
         </div>
     </div>
 

@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.core.paginator import Paginator
 from .models import Domain, Review
 from .forms import DomainForm, ReviewForm, SearchForm
 
@@ -27,7 +28,11 @@ def home(request):
     else:
         domain_form = DomainForm()
 
-    domains = Domain.objects.all()
+    domains_list = Domain.objects.all()
+    paginator = Paginator(domains_list, 10)  # Sayfa başına 10 domain
+    page_number = request.GET.get('page')
+    domains = paginator.get_page(page_number)
+
     return render(request, 'reviews/home.html', {
         'domain_form': domain_form,
         'domains': domains,
