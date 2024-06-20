@@ -5,14 +5,35 @@
 </head>
 <body>
     <h1>Domain Reviews</h1>
+    <!-- Domain Arama Formu -->
+    <form method="get">
+        {{ search_form.as_p }}
+        <button type="submit" name="search">Search Domain</button>
+    </form>
+
+    <!-- Arama Sonuçları -->
+    {% if search_results %}
+        <h2>Search Results:</h2>
+        <ul>
+            {% for domain in search_results %}
+                <li><a href="{% url 'domain_detail' domain.id %}">{{ domain.name }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <!-- Domain Ekleme Formu -->
     <form method="post">
         {% csrf_token %}
         {{ domain_form.as_p }}
         <button type="submit">Add Domain</button>
     </form>
+    <p>{{ message }}</p>
+
+    <!-- Mevcut Domainler -->
+    <h2>All Domains:</h2>
     <ul>
         {% for domain in domains %}
-        <li><a href="{% url 'domain_detail' domain.id %}">{{ domain.name }}</a></li>
+            <li><a href="{% url 'domain_detail' domain.id %}">{{ domain.name }}</a></li>
         {% endfor %}
     </ul>
 </body>

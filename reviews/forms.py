@@ -10,3 +10,6 @@ class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         fields = ['domain', 'review_text']
+
+class SearchForm(forms.Form):
+    name = forms.CharField(max_length=255, label='Search Domain')
