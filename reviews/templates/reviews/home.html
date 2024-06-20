@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Domain Reviews</title>
+</head>
+<body>
+    <h1>Domain Reviews</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ domain_form.as_p }}
+        <button type="submit">Add Domain</button>
+    </form>
+    <ul>
+        {% for domain in domains %}
+        <li><a href="{% url 'domain_detail' domain.id %}">{{ domain.name }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
