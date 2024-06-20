@@ -2,39 +2,67 @@
 <html>
 <head>
     <title>Domain Reviews</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <h1>Domain Reviews</h1>
-    <!-- Domain Arama Formu -->
-    <form method="get">
-        {{ search_form.as_p }}
-        <button type="submit" name="search">Search Domain</button>
-    </form>
+    <div class="container">
+        <h1 class="mt-4 text-center">Domain Reviews</h1>
 
-    <!-- Arama Sonuçları -->
-    {% if search_results %}
-        <h2>Search Results:</h2>
-        <ul>
-            {% for domain in search_results %}
-                <li><a href="{% url 'domain_detail' domain.id %}">{{ domain.name }}</a></li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+        <!-- Domain Ekleme Formu -->
+        <div class="card mt-4">
+            <div class="card-header">
+                Add a New Domain
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ domain_form.as_p }}
+                    <button type="submit" class="btn btn-primary">Add Domain</button>
+                </form>
+                <p class="mt-2">{{ message }}</p>
+            </div>
+        </div>
 
-    <!-- Domain Ekleme Formu -->
-    <form method="post">
-        {% csrf_token %}
-        {{ domain_form.as_p }}
-        <button type="submit">Add Domain</button>
-    </form>
-    <p>{{ message }}</p>
+        <!-- Domain Arama Formu -->
+        <div class="card mt-4">
+            <div class="card-header">
+                Search Domain
+            </div>
+            <div class="card-body">
+                <form method="get">
+                    {{ search_form.as_p }}
+                    <button type="submit" name="search" class="btn btn-primary">Search Domain</button>
+                </form>
+            </div>
+        </div>
 
-    <!-- Mevcut Domainler -->
-    <h2>All Domains:</h2>
-    <ul>
-        {% for domain in domains %}
-            <li><a href="{% url 'domain_detail' domain.id %}">{{ domain.name }}</a></li>
-        {% endfor %}
-    </ul>
+        <!-- Arama Sonuçları -->
+        {% if search_results %}
+            <div class="mt-4">
+                <h2>Search Results:</h2>
+                <ul class="list-group">
+                    {% for domain in search_results %}
+                        <li class="list-group-item"><a href="{% url 'domain_detail' domain.id %}">{{ domain.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <!-- Mevcut Domainler -->
+        <div class="mt-4">
+            <h2>All Domains:</h2>
+            <ul class="list-group">
+                {% for domain in domains %}
+                    <li class="list-group-item"><a href="{% url 'domain_detail' domain.id %}">{{ domain.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
