@@ -9,31 +9,36 @@
     <div class="container">
         <h1 class="mt-4 text-center">Domain Reviews</h1>
 
-        <!-- Domain Ekleme Formu -->
-        <div class="card mt-4">
-            <div class="card-header">
-                Add a New Domain
+        <!-- Domain Ekleme ve Arama Formları -->
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        Add a New Domain
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            {{ domain_form.as_p }}
+                            <button type="submit" class="btn btn-primary">Add Domain</button>
+                        </form>
+                        <p class="mt-2">{{ message }}</p>
+                    </div>
+                </div>
             </div>
-            <div class="card-body">
-                <form method="post">
-                    {% csrf_token %}
-                    {{ domain_form.as_p }}
-                    <button type="submit" class="btn btn-primary">Add Domain</button>
-                </form>
-                <p class="mt-2">{{ message }}</p>
-            </div>
-        </div>
-
-        <!-- Domain Arama Formu -->
-        <div class="card mt-4">
-            <div class="card-header">
-                Search Domain
-            </div>
-            <div class="card-body">
-                <form method="get">
-                    {{ search_form.as_p }}
-                    <button type="submit" name="search" class="btn btn-primary">Search Domain</button>
-                </form>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        Search Domain
+                    </div>
+                    <div class="card-body">
+                        <form method="get">
+                            {{ search_form.as_p }}
+                            <button type="submit" name="search" class="btn btn-primary">Search Domain</button>
+                        </form>
+                        <p class="mt-2"> </p>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -57,7 +62,7 @@
                     <li class="list-group-item"><a href="{% url 'domain_detail' domain.id %}">{{ domain.name }}</a></li>
                 {% endfor %}
             </ul>
-            <br>
+    <br>
             <!-- Pagination -->
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
@@ -84,7 +89,6 @@
             </nav>
         </div>
     </div>
-
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>

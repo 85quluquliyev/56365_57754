@@ -2,19 +2,48 @@
 <html>
 <head>
     <title>{{ domain.name }} - Reviews</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <h1>Reviews for {{ domain.name }}</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ review_form.as_p }}
-        <button type="submit">Add Review</button>
-    </form>
-    <ul>
-        {% for review in reviews %}
-        <li>{{ review.review_text }} ({{ review.created_at }})</li>
-        {% endfor %}
-    </ul>
-    <a href="{% url 'home' %}">Back to Home</a>
+    <div class="container">
+        <h1 class="mt-4 text-center">{{ domain.name }} - Reviews</h1>
+
+        <!-- Yorum Ekleme Formu -->
+        <div class="card mt-4">
+            <div class="card-header">
+                Add a Review
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ review_form.as_p }}
+                    <button type="submit" class="btn btn-primary">Add Review</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Yorumlar -->
+        <div class="mt-4">
+            <h2>All Reviews:</h2>
+            <ul class="list-group">
+                {% for review in reviews %}
+                    <li class="list-group-item">
+                        <p>{{ review.review_text }}</p>
+                        <small class="text-muted">Created at: {{ review.created_at }}</small>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="mt-4">
+            <a href="{% url 'home' %}" class="btn btn-primary">Back to Home</a>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
